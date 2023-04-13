@@ -20,5 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('load/', include('fileUploader.urls')),
-    path('plot/', include('plotter.urls'))
+    path('data/', include('plotter.urls'))
 ]

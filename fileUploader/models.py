@@ -1,5 +1,5 @@
 from django.db import models
-
+import json
 # Create your models here.
 class File(models.Model):
     name = models.CharField(max_length=30)
@@ -14,4 +14,9 @@ class Data(models.Model):
     y = models.FloatField()
 
     def __str__(self):
-        return "[file:"+self.file.name+", x:"+str(self.x)+", y:"+str(self.y)+"]"
+        dataStr = {}
+        dataStr['id'] = self.id
+        dataStr['fileName'] = self.file.name
+        dataStr['x'] = self.x
+        dataStr['y'] = self.y
+        return str(json.dumps(dataStr))
