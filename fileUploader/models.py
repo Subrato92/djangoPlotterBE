@@ -6,7 +6,7 @@ class File(models.Model):
     uploadTime = models.TimeField((u"Conversation Time"), auto_now_add=True, blank=True)
 
     def __str__(self):
-        return self.name + ", UploadedOn: " + str(self.uploadTime)
+        return "id:" + str(self.id) + ", file: " + self.name + ", UploadedOn: " + str(self.uploadTime)
 
 class Data(models.Model):
     file = models.ForeignKey(File, on_delete=models.CASCADE)

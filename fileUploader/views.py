@@ -5,6 +5,7 @@ from .models import File, Data
 
 import traceback
 import sys
+import json
 
 # Create your views here.
 @csrf_exempt
@@ -31,5 +32,16 @@ def uploadCsv(request):
         file.close()
     except:
         traceback.print_exception(*sys.exc_info())
+        httpResp = HttpResponse("Failed To Upload File")
+        httpResp.status_code = 500
+        return httpResp
+    
+    respObj = {}
+    respObj['fileName'] = fObj.name
+    respObj['fileId'] = fObj.id
 
-    return HttpResponse("CsvUploaded")
+    succResp = HttpResponse()
+    succResp.write(json.dumps(respObj))
+    succResp.status_code = 200
+
+    return succResp
