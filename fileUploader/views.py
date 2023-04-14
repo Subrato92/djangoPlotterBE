@@ -11,6 +11,8 @@ import json
 @csrf_exempt
 def uploadCsv(request):
     try:
+        if request.method == 'OPTIONS':
+            return HttpResponse()
         if request.method == 'POST':
             print("Received POST request")
         print(request.FILES)
@@ -43,5 +45,10 @@ def uploadCsv(request):
     succResp = HttpResponse()
     succResp.write(json.dumps(respObj))
     succResp.status_code = 200
+
+    succResp.headers["Access-Control-Allow-Headers"] = "Origin, Content-Type, X-Auth-Token, User-Agent, sec-ch-ua-platform, Referer, Content-Type"
+    succResp.headers["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+    succResp.headers["Access-Control-Allow-Origin"] = "*"
+    succResp.headers["Content-Type"] = "application/json"
 
     return succResp
